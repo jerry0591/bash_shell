@@ -68,13 +68,7 @@ check_pid(){
 	PID=$(ps -ef| grep "brook relays"| grep -v grep| grep -v ".sh"| grep -v "init.d"| grep -v "service"| awk '{print $2}')
 }
 check_new_ver(){
-	echo -e "请输入要下载安装的 Brook 版本号 ${Green_font_prefix}[ 格式是日期，例如: v20180909 ]${Font_color_suffix}
-版本列表请去这里获取：${Green_font_prefix}[ https://github.com/txthinking/brook/releases ]${Font_color_suffix}"
-	read -e -p "直接回车即自动获取:" brook_new_ver
-	if [[ -z ${brook_new_ver} ]]; then
-		brook_new_ver=$(wget -qO- https://api.github.com/repos/txthinking/brook/releases| grep "tag_name"| head -n 1| awk -F ":" '{print $2}'| sed 's/\"//g;s/,//g;s/ //g')
-		[[ -z ${brook_new_ver} ]] && echo -e "${Error} Brook 最新版本获取失败！" && exit 1
-		echo -e "${Info} 检测到 Brook 最新版本为 [ ${brook_new_ver} ]"
+	brook_new_ver="v20200502"
 	else
 		echo -e "${Info} 开始下载 Brook [ ${brook_new_ver} ] 版本！"
 	fi
@@ -226,7 +220,7 @@ Set_brook(){
  ${Green_font_prefix}2.${Font_color_suffix}  删除 端口转发
  ${Green_font_prefix}3.${Font_color_suffix}  修改 端口转发
  ${Green_font_prefix}4.${Font_color_suffix}  启用/禁用 端口转发
- 
+
  ${Tip} 本地监听端口不能重复，被转发的IP或端口可重复!" && echo
 	read -e -p "(默认: 取消):" bk_modify
 	[[ -z "${bk_modify}" ]] && echo "已取消..." && exit 1
@@ -476,7 +470,7 @@ Update_brook(){
 	echo && echo -e "请选择你的服务器是国内还是国外
  ${Green_font_prefix}1.${Font_color_suffix}  国内服务器(逗比云)
  ${Green_font_prefix}2.${Font_color_suffix}  国外服务器(Github)
- 
+
  ${Tip} 因为国内对 Github 限速，这会导致国内服务器下载速度极慢，所以选择 国内服务器 选项就会从我的 逗比云 下载!" && echo
 	read -e -p "(默认: 2 国外服务器):" bk_Download
 	[[ -z "${bk_Download}" ]] && bk_Download="2"
@@ -640,7 +634,7 @@ if [[ "${action}" == "monitor" ]]; then
 else
 	echo && echo -e "  Brook 端口转发 一键管理脚本 ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
   ---- Toyo | doub.io/wlzy-jc37 ----
-  
+
  ${Green_font_prefix} 0.${Font_color_suffix} 升级脚本
 ————————————
  ${Green_font_prefix} 1.${Font_color_suffix} 安装 Brook
